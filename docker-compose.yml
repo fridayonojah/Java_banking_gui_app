@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: bankapp_db
+    ports:
+      - '5436:5432'
+    environment:
+      POSTGRES_DB: group_db
+      POSTGRES_USER: group_user
+      POSTGRES_PASSWORD: group_password
+    volumes:
+      - group_db_data:/var/lib/postgresql/data
+  adminer:
+    image: adminer:latest
+    container_name: group_adminer
+    ports:
+      - '4006:8080'
+volumes:
+  group_db_data:
