@@ -5,14 +5,14 @@ import java.sql.Timestamp;
 public class Transaction {
     private int transactionId;
     private String accountNumber;
-    private String type; // deposit, withdrawal, transfer
+    private String transactionType; // deposit, withdrawal, transfer
     private double amount;
     private Timestamp timestamp;
 
-    public Transaction(int transactionId, String accountNumber, String type, double amount, Timestamp timestamp) {
+    public Transaction(int transactionId, String accountNumber, String transactionType, double amount, Timestamp timestamp) {
         this.transactionId = transactionId;
         this.accountNumber = accountNumber;
-        this.type = type;
+        this.transactionType = transactionType;
         this.amount = amount;
         this.timestamp = timestamp;
     }
@@ -24,8 +24,8 @@ public class Transaction {
     public String getAccountNumber() { return accountNumber; }
     public void setAccountNumber(String accountNumber) { this.accountNumber = accountNumber; }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public String getType() { return transactionType; }
+    public void setType(String transactionType) { this.transactionType = transactionType; }
 
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }

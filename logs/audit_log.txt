@@ -25,3 +25,107 @@
 [2025-05-20T19:02:50.470464500] User: friday | Action: Fetching accounts | Status: Accounts Failed!
 [2025-05-20T22:00:59.323132100] User: friday | Action: Login Attempt | Status: Success
 [2025-05-20T22:01:41.060107] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T10:28:18.460398700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T10:47:10.190459400] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-21T10:47:19.644003800] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T10:48:54.337747600] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T11:13:53.667044900] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T11:15:57.067139900] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T12:24:00.383304] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T19:43:32.142317700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T19:45:13.530005100] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T19:47:55.234779500] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T19:54:02.802559800] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T20:10:51.803609500] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T20:11:08.946065500] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T20:15:40.830126600] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T20:17:46.817062300] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T20:42:44.945112200] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T21:11:25.528628400] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T21:23:17.445264400] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T21:24:13.875691] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T21:24:57.612796600] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T21:36:43.704717200] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T21:42:37.036564200] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T21:43:44.962257800] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T21:44:40.256685] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T22:03:37.811987200] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T22:03:54.878204300] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T23:08:28.285714700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T23:11:20.608682500] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T23:11:35.206409700] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T23:28:29.807801] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T23:30:10.207577600] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T23:33:59.042102200] User:  | Action: Login Attempt | Status: Failed
+[2025-05-21T23:34:15.683575300] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-21T23:34:25.309992400] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T23:40:55.887232] User:  | Action: Login Attempt | Status: Failed
+[2025-05-21T23:41:16.105606700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-21T23:42:55.095662300] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-21T23:47:49.286561100] User:  | Action: Customer info saved successfully | Status: Success
+[2025-05-21T23:50:55.635102900] User:  | Action: Login Attempt | Status: Success
+[2025-05-21T23:54:36.315266500] User:  | Action: Login Attempt | Status: Success
+[2025-05-22T00:01:12.058932] User:  | Action: Login Attempt | Status: Success
+[2025-05-22T00:18:15.374134600] User:  | Action: Login Attempt | Status: Success
+[2025-05-22T00:19:18.215116300] User:  | Action: Login Attempt | Status: Success
+[2025-05-22T00:26:05.843442400] User:  | Action: Login Attempt | Status: Success
+[2025-05-22T00:29:55.226461] User:  | Action: Login Attempt | Status: Success
+[2025-05-22T00:31:08.401832500] User:  | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T00:35:36.393936200] User:  | Action: Login Attempt | Status: Success
+[2025-05-22T00:36:10.698116500] User:  | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:00:51.493745600] User:  | Action: Login Attempt | Status: Failed
+[2025-05-22T07:01:10.435485700] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-22T07:16:55.876501400] User:  | Action: Login Attempt | Status: Failed
+[2025-05-22T07:17:01.170794] User:  | Action: Login Attempt | Status: Failed
+[2025-05-22T07:24:27.488764800] User: james8 | Action: Registration Attempt | Status: Registration Failed
+[2025-05-22T07:28:03.168089700] User: friday | Action: Customer info saved successfully | Status: Success
+[2025-05-22T07:28:39.843252600] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:30:47.955796100] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T07:30:58.562134200] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:41:11.422658700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T07:41:18.248564100] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:43:59.518439100] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T07:44:09.063972800] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:45:43.957004] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T07:45:50.235595600] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:46:27.788733500] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:46:30.564510200] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:47:09.366163600] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:47:11.596993] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T07:51:22.061677600] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T08:21:22.386129200] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T08:21:40.980081700] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T08:21:48.561784500] User: friday | Action: Fetching accounts | Status: Accounts Failed!
+[2025-05-22T08:28:22.073999600] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T08:31:36.456944] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T08:36:03.616880400] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T08:47:44.932413800] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:00:08.869349900] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:38:31.979029400] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:47:02.505072400] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:48:42.747962100] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:50:23.294081300] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:52:43.470663600] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:54:05.989926700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T09:58:16.264493900] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T10:01:04.165477700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T10:19:11.582316] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:00:53.966750700] User: Friday | Action: Login Attempt | Status: Failed
+[2025-05-22T11:01:02.500312800] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:03:00.945210800] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:04:08.975711800] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:12:24.651085900] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:16:52.165837600] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:24:44.351138700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:25:38.362761700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T11:27:15.388590500] User: ken | Action: Customer info saved successfully | Status: Success
+[2025-05-22T12:05:01.719338700] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T13:10:00.927712300] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-22T13:10:10.740954600] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-22T13:10:17.702948500] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-22T13:10:21.723767200] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-22T15:05:35.982192800] User: friday | Action: Login Attempt | Status: Failed
+[2025-05-22T16:21:54.509993200] User: friday | Action: Login Attempt | Status: Success
+[2025-05-22T16:23:11.780336300] User: daniel@1 | Action: Customer info saved successfully | Status: Success
+[2025-05-22T16:31:40.992313100] User: james2 | Action: Customer info saved successfully | Status: Success
+[2025-05-22T16:40:45.958568200] User: ken@1 | Action: Customer info saved successfully | Status: Success

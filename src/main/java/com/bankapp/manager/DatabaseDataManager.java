@@ -1,8 +1,11 @@
 package com.bankapp.manager;
+
+
+
 import com.bankapp.model.Account;
 import com.bankapp.model.Customer;
 import com.bankapp.model.Transaction;
-import com.bankapp.model.Transaction.ScheduleTransaction;
+// import com.bankapp.model.Transaction.ScheduleTransaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,13 +19,14 @@ import java.util.ArrayList;
 public class DatabaseDataManager {
 
     // Create a new user
-    public static boolean createUser(String username, String password, String email) {
-        String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+    public static boolean createUser(String username, String password, String email, String fullname) {
+        String sql = "INSERT INTO users (username, password, email, fullname) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             pstmt.setString(3, email);
+            pstmt.setString(4, fullname);
             pstmt.executeUpdate();
             System.out.println("User created: " + username);
             return true;
@@ -42,7 +46,12 @@ public class DatabaseDataManager {
             ResultSet rs = pstmt.executeQuery();
             System.err.println("user" + rs);
             if (rs.next()) {
-                return new Customer(rs.getInt("id"), rs.getString("username"), rs.getString("email"), rs.getString("password"));
+                return new Customer(rs.getInt("id"),
+                 rs.getString("username"),
+                  rs.getString("email"), 
+                  rs.getString("password"),
+                  rs.getString("fullname")
+                  );
             }
         } catch (SQLException e) {
             System.err.println("Error fetching user credentials: " + e.getMessage());
@@ -51,10 +60,9 @@ public class DatabaseDataManager {
     }
     
 
-
     // Create a new account
     public static boolean createAccount(String accountNumber, int userId, String accountType) {
-        String sql = "INSERT INTO accounts (accountNumber, customerId, account_type, balance) VALUES (?, ?, ?, 0.0)";
+        String sql = "INSERT INTO accounts (accountNumber, customerId, accountType, balance) VALUES (?, ?, ?, 0.0)";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, accountNumber);
@@ -70,11 +78,10 @@ public class DatabaseDataManager {
     }
 
 
-
     // Deposit into an account
     public static boolean deposit(int accountId, double amount) {
-        String updateBalance = "UPDATE accounts SET balance = balance + ? WHERE id = ?";
-        String insertTransaction = "INSERT INTO transactions (account_id, amount, transaction_type) VALUES (?, ?, 'deposit')";
+        String updateBalance = "UPDATE accounts SET balance = balance + ? WHERE accountId = ?";
+        String insertTransaction = "INSERT INTO transactions (accountId, amount, transactionType) VALUES (?, ?, 'deposit')";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement updateStmt = conn.prepareStatement(updateBalance);
@@ -104,8 +111,8 @@ public class DatabaseDataManager {
 
     // Withdraw from an account
     public static boolean withdraw(int accountId, double amount) {
-        String updateBalance = "UPDATE accounts SET balance = balance - ? WHERE id = ? AND balance >= ?";
-        String insertTransaction = "INSERT INTO transactions (account_id, amount, transaction_type) VALUES (?, ?, 'withdraw')";
+        String updateBalance = "UPDATE accounts SET balance = balance - ? WHERE accountId = ? AND balance >= ?";
+        String insertTransaction = "INSERT INTO transactions (accountId, amount, transactionType) VALUES (?, ?, 'withdraw')";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement updateStmt = conn.prepareStatement(updateBalance);
@@ -142,7 +149,7 @@ public class DatabaseDataManager {
 
     // Get account balance
     public static double getAccountBalance(int accountId) {
-        String sql = "SELECT balance FROM accounts WHERE id = ?";
+        String sql = "SELECT balance FROM accounts WHERE accountId = ?";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, accountId);
@@ -169,7 +176,7 @@ public class DatabaseDataManager {
                 transactions.add(new Transaction(
                 rs.getInt("transactionId"), 
                 rs.getString("accountNumber"),
-                rs.getString("transaction_type"),
+                rs.getString("transactionType"),
                 rs.getDouble("amount"),
                 rs.getTimestamp("timestamp")));
                
@@ -199,16 +206,31 @@ public class DatabaseDataManager {
         }
     }
 
-
-
-    public static Account getAccountById(int customerId) {
-        String sql = "SELECT * FROM accounts WHERE customerId = ?";
+    public static Account getAccountById(int accountId) {
+        String sql = "SELECT * FROM accounts WHERE accountId = ?";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, customerId);
+            pstmt.setInt(1, accountId);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getString("accountNumber"), rs.getInt("customerId"), 
+                return new Account(rs.getInt("accountId"), rs.getString("accountNumber"), rs.getInt("customerId"), 
+                rs.getString("accountType"), rs.getDouble("balance"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching user credentials: " + e.getMessage());
+        }
+        return null;
+    }
+
+
+    public static Account getAccountByAccountNumber(String accountNumber) {
+        String sql = "SELECT * FROM accounts WHERE accountNumber = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, accountNumber);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getInt("accountId"), rs.getString("accountNumber"), rs.getInt("customerId"), 
                 rs.getString("accountType"), rs.getDouble("balance"));
             }
         } catch (SQLException e) {
@@ -227,6 +249,7 @@ public class DatabaseDataManager {
             
             while (rs.next()) { 
                 accounts.add(new Account(
+                    rs.getInt("accountId"),
                     rs.getString("accountNumber"), 
                     rs.getInt("customerId"), 
                     rs.getString("accountType"), 
@@ -240,4 +263,117 @@ public class DatabaseDataManager {
         return accounts; 
     }
 
+
+    public static List<Account> loadAccountsByCustomerId(int customerId) {
+        String sql = "SELECT * FROM accounts WHERE customerId = ?";
+        List<Account> accounts = new ArrayList<>(); 
+        
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, customerId);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    accounts.add(new Account(
+                        rs.getInt("accountId"),
+                        rs.getString("accountNumber"), 
+                        rs.getInt("customerId"), 
+                        rs.getString("accountType"), 
+                        rs.getDouble("balance")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching Accounts: " + e.getMessage());
+        }
+    
+        return accounts; 
+    }
+    
+
+    public static boolean updateAccountBalance(String accountNumber, double newBalance) throws SQLException {
+        String sql = "UPDATE accounts SET balance = ?, last_modified = NOW() WHERE accountNumber = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+        PreparedStatement updateStmt = conn.prepareStatement(sql)) {
+            updateStmt.setDouble(1, newBalance);
+            updateStmt.setString(2, accountNumber);
+            int rowsAffected = updateStmt.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+
+    // Fetch Recent Transactions
+    public static List<Transaction> getRecentTransactionsByCustomerId(int customerId, int limit) {
+        String sql = """
+            SELECT t.transactionId, t.accountId, a.accountNumber, t.transactionType, t.amount, t.timestamp
+            FROM transactions t
+            JOIN accounts a ON t.accountId = a.accountId
+            WHERE a.customerId = ?
+            ORDER BY t.timestamp DESC
+            LIMIT ?
+        """;
+    
+        List<Transaction> transactions = new ArrayList<>();
+    
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setInt(1, customerId);
+            stmt.setInt(2, limit);
+    
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                transactions.add(new Transaction(
+                    rs.getInt("transactionId"),
+                    rs.getString("accountNumber"),
+                    rs.getString("transactionType"),
+                    rs.getDouble("amount"),
+                    rs.getTimestamp("timestamp")
+                ));
+            }
+    
+        } catch (SQLException e) {
+            System.err.println("Error loading recent transactions: " + e.getMessage());
+        }
+    
+        return transactions;
+    }
+    
+    
+    // Serach Transactions
+    public static List<Transaction> getTransactionsByAccountNumber(String accountNumber) {
+        String sql = """
+            SELECT t.transactionId, t.accountId, a.accountNumber, t.transactionType, t.amount, t.timestamp
+            FROM transactions t
+            JOIN accounts a ON t.accountId = a.accountId
+            WHERE a.accountNumber = ?
+            ORDER BY t.timestamp DESC
+        """;
+
+    
+        List<Transaction> transactions = new ArrayList<>();
+    
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setString(1, accountNumber);
+    
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                transactions.add(new Transaction(
+                    rs.getInt("transactionId"),
+                    rs.getString("accountNumber"),
+                    rs.getString("transactionType"), 
+                    rs.getDouble("amount"),
+                    rs.getTimestamp("timestamp")
+                ));
+            }
+    
+        } catch (SQLException e) {
+            System.err.println("Error searching transactions: " + e.getMessage());
+        }
+    
+        return transactions;
+    }
 }

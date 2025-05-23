@@ -1,8 +1,7 @@
+// Main Application entry point
 package com.bankapp.gui;
 
-// Main Application entry point
 import com.bankapp.controller.BankController;
-
 
 public class MainApp {
     public static void main(String[] args) {

@@ -1,13 +1,12 @@
 package com.bankapp.controller;
 
 import javax.swing.*;
-
-import com.bankapp.gui.LoginUI;
-import com.bankapp.model.SessionManager;
-
 import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.bankapp.gui.LoginUI;
+import com.bankapp.model.SessionManager;
 
 
 public class SessionTimeoutWatcher {

@@ -1,16 +1,16 @@
 package com.bankapp.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.bankapp.model.Customer;
-import com.bankapp.model.SessionManager;
+// import com.bankapp.model.SessionManager;
 import com.bankapp.utils.AuditLogger;
 import com.bankapp.utils.Notifier;
 import com.bankapp.utils.PasswordUtils;
 import com.bankapp.gui.DashboardUI;
 import com.bankapp.gui.LoginUI;
 import com.bankapp.manager.DatabaseDataManager;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class BankController {
@@ -31,15 +31,15 @@ public class BankController {
            
             if (customer != null &&  PasswordUtils.verifyPassword(password, customer.getPassword())) {
                 AuditLogger.log(customer.getUsername(), "Login Attempt", "Success");
-                Notifier.showNotification("Login Successful!", "Login Alert");
+                Notifier.showNotification("Login Successful!", "Login Message");
 
                 // after successful login
                 DashboardUI dashboardView = new DashboardUI(username);
                 dashboardView.setVisible(true);
 
                 // Setting Dashboard session watcher
-                SessionManager.login(username);
-                SessionTimeoutWatcher.start(dashboardView);
+                // SessionManager.login(username);
+                // SessionTimeoutWatcher.start(dashboardView);
 
                 new DashboardController(dashboardView);
                 LoginUI.dispose(); // Close Login screen

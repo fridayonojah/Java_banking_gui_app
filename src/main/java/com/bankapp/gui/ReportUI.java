@@ -1,8 +1,12 @@
 package com.bankapp.gui;
 
+import com.bankapp.manager.DatabaseDataManager;
+import com.bankapp.model.Transaction;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class ReportUI extends JFrame {
     private JTable transactionTable;
@@ -10,45 +14,66 @@ public class ReportUI extends JFrame {
     private JTextField accountNumberField;
     private JButton searchButton;
 
-    public ReportUI() {
+    public ReportUI(int customerId) {
         setTitle("Transaction Reports");
-        setSize(600, 400);
+        setSize(680, 420);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
 
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new FlowLayout());
-
-        topPanel.add(new JLabel("Account Number:"));
-        accountNumberField = new JTextField(15);
-        topPanel.add(accountNumberField);
-
+        // Top Panel (search bar)
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        accountNumberField = new JTextField("Enter account number...", 20);
         searchButton = new JButton("Search");
+        topPanel.add(accountNumberField);
         topPanel.add(searchButton);
-
         add(topPanel, BorderLayout.NORTH);
 
-        tableModel = new DefaultTableModel(new String[]{"Date", "Type", "Amount"}, 0);
+        // Table setup
+        String[] columns = {"Transaction ID", "Account Number", "Type", "Amount", "Timestamp"};
+        tableModel = new DefaultTableModel(columns, 0);
         transactionTable = new JTable(tableModel);
+        transactionTable.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(transactionTable);
-
         add(scrollPane, BorderLayout.CENTER);
+
+        // Load recent transactions
+        loadRecentTransactions(customerId);
+
+        // Search by account number
+        searchButton.addActionListener(e -> {
+            String accNum = accountNumberField.getText().trim();
+            if (!accNum.isEmpty()) {
+                loadTransactionsByAccountNumber(accNum);
+            }
+        });
     }
 
-    public JTable getTransactionTable() {
-        return transactionTable;
+    private void loadRecentTransactions(int customerId) {
+        tableModel.setRowCount(0); // Clear previous data
+        List<Transaction> transactions = DatabaseDataManager.getRecentTransactionsByCustomerId(customerId, 5);
+        for (Transaction tx : transactions) {
+            tableModel.addRow(new Object[]{
+                    tx.getTransactionId(),
+                    tx.getAccountNumber(),
+                    tx.getType(),
+                    tx.getAmount(),
+                    tx.getTimestamp()
+            });
+        }
     }
 
-    public DefaultTableModel getTableModel() {
-        return tableModel;
-    }
-
-    public JTextField getAccountNumberField() {
-        return accountNumberField;
-    }
-
-    public JButton getSearchButton() {
-        return searchButton;
+    private void loadTransactionsByAccountNumber(String accountNumber) {
+        tableModel.setRowCount(0); // Clear previous data
+        List<Transaction> transactions = DatabaseDataManager.getTransactionsByAccountNumber(accountNumber);
+        for (Transaction tx : transactions) {
+            tableModel.addRow(new Object[]{
+                    tx.getTransactionId(),
+                    tx.getAccountNumber(),
+                    tx.getType(),
+                    tx.getAmount(),
+                    tx.getTimestamp()
+            });
+        }
     }
 }

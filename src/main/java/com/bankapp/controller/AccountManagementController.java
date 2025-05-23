@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Random;
 
 import com.bankapp.model.Account;
 import com.bankapp.model.Customer;
@@ -31,16 +32,17 @@ public class AccountManagementController {
         Customer customer = DatabaseDataManager.loadUserCredentials(username);
         this.activeUserId = customer.getId();
 
-        List<Account> accounts = DatabaseDataManager.loadAccounts();
-        for (Account acc : accounts) {
-            if (acc.getCustomerId() == activeUserId) {
-                view.getTableModel().addRow(new Object[]{
-                        acc.getAccountNumber(), acc.getAccountType(), acc.getBalance()
-                });
-            }
+        List<Account> accounts = DatabaseDataManager.loadAccountsByCustomerId(activeUserId);
+        if (accounts == null) {
+            AuditLogger.log(username, "Fetching accounts", "Accounts Failed!");
+            Notifier.showNotification("No accounts found at the moment", "No account yet");
         }
-        AuditLogger.log(username, "Fetching accounts", "Accounts Failed!");
-        Notifier.showNotification("No accounts found at the moment", "No account yet");
+
+        for (Account acc : accounts) {
+            view.getTableModel().addRow(new Object[]{
+                    acc.getAccountNumber(), acc.getAccountType(), acc.getBalance()
+            }); 
+        }
        
     }
 
@@ -53,23 +55,33 @@ public class AccountManagementController {
                 new String[]{"Savings", "Current"}, "Savings");
 
             if (accountType != null) {
-                String accNum = "ACC" + System.currentTimeMillis(); // Simple unique ID
+                String accNum = generateAccountNumber();
                 double initialBalance = 0.0;
 
                 // Save account details
                 boolean newAccount = DatabaseDataManager.createAccount(accNum, activeUserId, accountType);
+                if (newAccount == false) {
+                    Notifier.showNotification("Apologies, an error occurred trying to create account!", "Account creation failed."); 
+                }
+
                 if (newAccount) {
                     Notifier.showNotification("Account created successfully!", "Account created.");
                 
-                    Account newAcc = new Account(accNum, activeUserId, accountType, initialBalance);
+                    Account newAcc = new Account(1, accNum, activeUserId, accountType, initialBalance);
                     // Update table
                     view.getTableModel().addRow(new Object[]{
                             newAcc.getAccountNumber(), newAcc.getAccountType(), newAcc.getBalance()
-                    });
-                    
+                    }); 
                 }
-                Notifier.showNotification("Apologies, an error occurred trying to create account!", "Account creation failed."); 
+                
             }
+        }
+
+        public static String generateAccountNumber() {
+            Random random = new Random();
+            int firstDigit = random.nextInt(9) + 1;  
+            long randomDigits = (long) (Math.random() * 1_000_000_000L);
+            return String.format("%d%09d", firstDigit, randomDigits);
         }
     }
 }

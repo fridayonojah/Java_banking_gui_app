@@ -16,25 +16,25 @@ public class ReportController {
     public ReportController(ReportUI view) {
         this.view = view;
         
-        this.view.getSearchButton().addActionListener(new SearchListener());
+        // this.view.getSearchButton().addActionListener(new SearchListener());
     }
 
-    class SearchListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String accountNumber = view.getAccountNumberField().getText().trim();
-            if (accountNumber.isEmpty()) {
-                Notifier.showNotification("Please enter an account number.", "Missing Field"); 
-                return;
-            }
+    // class SearchListener implements ActionListener {
+    //     @Override
+    //     public void actionPerformed(ActionEvent e) {
+    //         String accountNumber = view.getAccountNumberField().getText().trim();
+    //         if (accountNumber.isEmpty()) {
+    //             Notifier.showNotification("Please enter an account number.", "Missing Field"); 
+    //             return;
+    //         }
 
-            // List<String[]> transactions = TransactionFileManager.loadTransactions(accountNumber);
-            List<Transaction> transactions = DatabaseDataManager.fetchTransactions(accountNumber);
+    //         // List<String[]> transactions = TransactionFileManager.loadTransactions(accountNumber);
+    //         List<Transaction> transactions = DatabaseDataManager.fetchTransactions(accountNumber);
 
-            view.getTableModel().setRowCount(0); // clear table
-            for (Transaction record : transactions) {
-                view.getTableModel().addRow(new Object[]{ record });
-            }
-        }
-    }
+    //         view.getTableModel().setRowCount(0); // clear table
+    //         for (Transaction record : transactions) {
+    //             view.getTableModel().addRow(new Object[]{ record });
+    //         }
+    //     }
+    // }
 }

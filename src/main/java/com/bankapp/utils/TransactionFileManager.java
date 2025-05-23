@@ -12,7 +12,7 @@ public class TransactionFileManager {
 
     public static void saveTransaction(String accountNumber, String type, double amount) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")); 
             bw.write(accountNumber + "," + type + "," + amount + "," + timestamp);
             bw.newLine();
         } catch (IOException e) {
@@ -38,11 +38,4 @@ public class TransactionFileManager {
 
         return transactions;
     }
-
-
-    public static void recordTransaction(String toAccount, String string, double amount) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recordTransaction'");
-    }
-
 }

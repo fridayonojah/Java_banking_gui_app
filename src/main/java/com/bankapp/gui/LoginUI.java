@@ -1,6 +1,7 @@
 package com.bankapp.gui;
 
 import javax.swing.*;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,38 +14,71 @@ public class LoginUI extends JFrame {
     private JLabel createAccountLabel;
 
     public LoginUI() {
+        try {
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+        } catch (Exception e) {
+            System.err.println("Failed to apply FlatLaf theme.");
+        }
+
         setTitle("Group E Banking App - Login");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        panel.setBackground(Color.WHITE);
+        setResizable(false);
+        setLayout(new BorderLayout());
+
+        // Title at top
+        JLabel titleLabel = new JLabel("Group E Bank", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Form Panel with full-width fields
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 20, 10, 20);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
 
-        JLabel titleLabel = new JLabel("Welcome to Group E Banking");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        // Username Field
+        usernameField = new JTextField();
+        usernameField.putClientProperty("JTextField.placeholderText", "Username");
 
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField(15);
+        // Password Field
+        passwordField = new JPasswordField();
+        passwordField.putClientProperty("JTextField.placeholderText", "Password");
 
-        JLabel passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField(15);
+        // Add fields
+        gbc.gridy = 0; formPanel.add(usernameField, gbc);
+        gbc.gridy = 1; formPanel.add(passwordField, gbc);
 
+        // Login Button
         loginButton = new JButton("Login");
-        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
-        loginButton.setBackground(new Color(70, 130, 180));
+        loginButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        loginButton.setBackground(new Color(30, 144, 255));
         loginButton.setForeground(Color.WHITE);
+        loginButton.setFocusPainted(false);
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loginButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        gbc.gridy = 2;
+        formPanel.add(loginButton, gbc);
 
-        // Create Account Label (Clickable Link)
+        // Create Account Link
         createAccountLabel = new JLabel("<html><u>Create an account</u></html>");
-        createAccountLabel.setForeground(Color.BLUE);
+        createAccountLabel.setForeground(new Color(30, 144, 255));
+        createAccountLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        createAccountLabel.setHorizontalAlignment(SwingConstants.CENTER);
         createAccountLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        gbc.gridy = 3;
+        formPanel.add(createAccountLabel, gbc);
+
+        // Add everything
+        add(formPanel, BorderLayout.CENTER);
+
 
         createAccountLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -55,17 +89,6 @@ public class LoginUI extends JFrame {
                 dispose(); // Close Registration Form
             }
         });
-
-        // Positioning elements
-        gbc.gridy = 0; panel.add(titleLabel, gbc);
-        gbc.gridy = 1; panel.add(usernameLabel, gbc);
-        gbc.gridy = 2; panel.add(usernameField, gbc);
-        gbc.gridy = 3; panel.add(passwordLabel, gbc);
-        gbc.gridy = 4; panel.add(passwordField, gbc);
-        gbc.gridy = 5; panel.add(loginButton, gbc);
-        gbc.gridy = 6; panel.add(createAccountLabel, gbc); 
-
-        add(panel);
     }
 
     public String getUsername() {

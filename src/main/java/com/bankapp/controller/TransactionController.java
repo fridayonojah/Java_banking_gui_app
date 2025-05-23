@@ -1,7 +1,5 @@
 package com.bankapp.controller;
 
-import javax.swing.*;
-
 import com.bankapp.gui.TransactionUI;
 import com.bankapp.manager.DatabaseDataManager;
 import com.bankapp.model.Account;
@@ -52,7 +50,7 @@ public class TransactionController {
 
             Customer customerExist = DatabaseDataManager.loadUserCredentials(username);
             if (customerExist == null) {
-                Notifier.showNotification("Customer does not exist", "Customer Not found");
+                Notifier.showNotification("This customer does not exist in our record!", "Customer Not found");
             }
 
             Account userAcc = null;
@@ -70,7 +68,7 @@ public class TransactionController {
             }
 
             if (userAcc == null) {
-                Notifier.showNotification("No record of sender account found!", "Account Not found");
+                Notifier.showNotification("From account number not found!", "Account Not found");
                 return;
             }
 

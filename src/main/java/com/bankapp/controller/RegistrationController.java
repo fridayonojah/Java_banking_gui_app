@@ -25,6 +25,11 @@ public class RegistrationController {
             String username = RegistrationUI.getUsername();
             String password = RegistrationUI.getPassword();
             String email = RegistrationUI.getEmail();
+            String fullname = RegistrationUI.getFullname();
+
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty() || fullname.isEmpty()) {
+                Notifier.showNotification("All inputs are required!", "Login Error");
+            }
 
             Customer customer = DatabaseDataManager.loadUserCredentials(username);
             
@@ -37,12 +42,12 @@ public class RegistrationController {
             String passHash = PasswordUtils.hashPassword(password);
             
             // Save customer info in the database
-            if (DatabaseDataManager.createUser(username, passHash, email)) {
+            if (DatabaseDataManager.createUser(username, passHash, email, fullname)) {
                 AuditLogger.log(customer.getUsername(), "Customer info saved successfuly", "Success");
                 Notifier.showNotification("Hi " + customer.getUsername() + "your details was saved successfully ", "Registration Alert");
 
                 RegistrationUI.dispose(); // Close Registration screen
-                DashboardUI dashboardView = new DashboardUI(username);
+                DashboardUI dashboardView = new DashboardUI(fullname);
                 dashboardView.setVisible(true);
                 new DashboardController(dashboardView);
 

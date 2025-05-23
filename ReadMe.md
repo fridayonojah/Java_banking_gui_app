@@ -44,12 +44,6 @@ This is a standalone Java Banking Application built using Swing and AWT for the 
 - **Transaction History**: Displays a list of recent transactions.
 - **Logout**: Safely logs you out of the session.
 
-### 5. **Admin Panel**
-- Admins can:
-  - View all user accounts
-  - Reset or delete accounts
-  - Monitor all transactions
 
----
 
 
